@@ -1,45 +1,31 @@
-import React from 'react';
-import { StatusBar } from 'react-native';
-import { StyleSheet, Text, View } from 'react-native';
-import { Dpad } from './src/components/Dpad';
+import React, {useEffect} from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Device } from 'react-native-ble-plx';
+import { Control } from './src/screens/Control';
+import { SearchBluetooth } from './src/screens/SearchBluetooth';
 
-import { theme } from './src/global/styles/theme';
-import { ButtonsGroup } from './src/components/ButtonsGroup';
+
+export type RootStackParamList = {
+  Home: undefined;
+  Device: { device: Device };
+};
 
 export default function App() {
+  useEffect(() => {
+    console.log('Aoba');
+  }, []);
+
+  const Stack = createStackNavigator<RootStackParamList>();
+
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor='transparent' translucent />
-      <Text style={styles.title}>Ragnarok Control</Text>
-      <View style={styles.controlsContainer}>
-        <Dpad />
-        <ButtonsGroup />
-      </View>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }} >
+        <Stack.Screen name="Device" component={Control} />
+        <Stack.Screen name="Home" component={SearchBluetooth} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.primary,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  title: {
-    fontFamily: 'Inconsolata',
-    width: '100%',
-    textAlign: 'center',
-    marginTop: 15,
-    fontSize: 35,
-    color: theme.colors.heading,
-  },
-  controlsContainer: {
-    flex: 1,
-    width: '100%',
-    paddingHorizontal: 30,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  }
-});
+

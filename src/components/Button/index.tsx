@@ -4,7 +4,7 @@ import { TouchableOpacity } from "react-native";
 
 import { styles } from './styles';
 
-type Props = {
+type Props = TouchableOpacity & {
   title: string;
 }
 
