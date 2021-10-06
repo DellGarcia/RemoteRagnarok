@@ -5,18 +5,27 @@ import Entypo from 'react-native-vector-icons/Entypo';
 
 import styles from './styles';
 import {theme} from '../../global/styles/theme';
+import { CarMovements } from '../../enum/CarMovements';
 
-export function Dpad() {
+type Props = {
+  callback: (move: CarMovements) => void
+}
+
+export function Dpad({ callback } : Props) {
   const buttonSize = 80;
   const buttonColor = theme.colors.secondary40;
 
-  function log() {
-    console.log('click');
+  function handleClick(move: CarMovements) {
+    callback(move);
   }
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={log} activeOpacity={0.5}>
+      <TouchableOpacity 
+        onPress={() => handleClick(CarMovements.FOWARD)}
+        onPressOut={() => handleClick(CarMovements.STOP)}
+        activeOpacity={0.5}
+      >
         <Entypo
           style={styles.btn}
           name="chevron-up"
@@ -26,7 +35,11 @@ export function Dpad() {
       </TouchableOpacity>
 
       <View style={styles.middle}>
-        <TouchableOpacity onPress={log} activeOpacity={0.5}>
+        <TouchableOpacity 
+          onPress={() => handleClick(CarMovements.LEFT)}
+          onPressOut={() => handleClick(CarMovements.STOP)}
+          activeOpacity={0.5}
+        >
           <Entypo
             style={styles.btn}
             name="chevron-left"
@@ -34,7 +47,11 @@ export function Dpad() {
             color={buttonColor}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={log} activeOpacity={0.5}>
+        <TouchableOpacity 
+          onPress={() => handleClick(CarMovements.RIGHT)}
+          onPressOut={() => handleClick(CarMovements.STOP)}
+          activeOpacity={0.5}
+        >
           <Entypo
             style={styles.btn}
             name="chevron-right"
@@ -44,7 +61,11 @@ export function Dpad() {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity onPress={log} activeOpacity={0.5}>
+      <TouchableOpacity 
+        onPress={() => handleClick(CarMovements.BACKWARD)}
+        onPressOut={() => handleClick(CarMovements.STOP)}
+        activeOpacity={0.5}
+      >
         <Entypo
           style={styles.btn}
           name="chevron-down"
