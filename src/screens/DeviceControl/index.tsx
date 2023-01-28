@@ -15,10 +15,22 @@ export const DeviceControl = ({
 }: StackScreenProps<RootStackParamList, 'Device'>) => {
   const { device } = route.params;
 
+  const serviceUUID = '6E400001-B5A3-F393-E0A9-E50E24DCCA9E';
+  const characteristicUUID_RX = '6E400001-B5A3-F393-E0A9-E50E24DCCA9E';
+  const characteristicUUID_TX = '6E400001-B5A3-F393-E0A9-E50E24DCCA9E';
+
+  // useEffect(() => {
+  //   setInterval( async() => {
+  //     const res = await device.readCharacteristicForService(serviceUUID, 
+  //       characteristicUUID_TX);
+
+  //   }, 1000);
+  // }, [])
+
   async function moveCallback(move: CarMovements) {
     await device.writeCharacteristicWithResponseForService(
-      'ab0828b1-198e-4351-b779-901fa0e0371e', 
-      '4ac8a682-9736-4e5d-932b-e9b31405049c', 
+      serviceUUID, 
+      characteristicUUID_RX, 
       Base64.encode(move)
     )
   }

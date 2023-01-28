@@ -23,7 +23,7 @@ export const DeviceCard = ({ device }: DeviceCardProps) => {
 
   async function handleConnect() {
     try {
-      await device.connect();
+      await device.connect({ requestMTU: 512 });
 
       device = (await device.discoverAllServicesAndCharacteristics())
 

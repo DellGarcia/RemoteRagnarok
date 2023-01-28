@@ -1,11 +1,11 @@
 import React from 'react';
 import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native';
+import { CarMovements } from '../../enum/CarMovements';
+import {theme} from '../../global/styles/theme';
 import Entypo from 'react-native-vector-icons/Entypo';
 
 import styles from './styles';
-import {theme} from '../../global/styles/theme';
-import { CarMovements } from '../../enum/CarMovements';
 
 type Props = {
   callback: (move: CarMovements) => void
@@ -17,12 +17,13 @@ export function Dpad({ callback } : Props) {
 
   function handleClick(move: CarMovements) {
     callback(move);
+    console.log(move);
   }
 
   return (
     <View style={styles.container}>
       <TouchableOpacity 
-        onPress={() => handleClick(CarMovements.FOWARD)}
+        onPressIn={() => handleClick(CarMovements.FOWARD)}
         onPressOut={() => handleClick(CarMovements.STOP)}
         activeOpacity={0.5}
       >
@@ -36,7 +37,7 @@ export function Dpad({ callback } : Props) {
 
       <View style={styles.middle}>
         <TouchableOpacity 
-          onPress={() => handleClick(CarMovements.LEFT)}
+          onPressIn={() => handleClick(CarMovements.LEFT)}
           onPressOut={() => handleClick(CarMovements.STOP)}
           activeOpacity={0.5}
         >
@@ -48,7 +49,7 @@ export function Dpad({ callback } : Props) {
           />
         </TouchableOpacity>
         <TouchableOpacity 
-          onPress={() => handleClick(CarMovements.RIGHT)}
+          onPressIn={() => handleClick(CarMovements.RIGHT)}
           onPressOut={() => handleClick(CarMovements.STOP)}
           activeOpacity={0.5}
         >
@@ -62,7 +63,7 @@ export function Dpad({ callback } : Props) {
       </View>
 
       <TouchableOpacity 
-        onPress={() => handleClick(CarMovements.BACKWARD)}
+        onPressIn={() => handleClick(CarMovements.BACKWARD)}
         onPressOut={() => handleClick(CarMovements.STOP)}
         activeOpacity={0.5}
       >
